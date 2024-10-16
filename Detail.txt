@@ -1,0 +1,130 @@
+1.Write a blog on Difference between HTTP1.1 vs HTTP2
+### Difference Between HTTP1.1 and HTTP2
+
+The Hypertext Transfer Protocol (HTTP) is the foundation of data communication on the World Wide Web. Since its inception, it has evolved to meet the growing needs of modern web applications. HTTP/1.1 was the dominant protocol for many years, but as websites became more complex and performance expectations increased, HTTP/2 was introduced to address the limitations of HTTP/1.1. Let’s explore the key differences between the two versions.
+
+---
+
+#### 1. **Multiplexing: Handling Multiple Requests**
+- **HTTP/1.1**: In HTTP/1.1, only one request can be handled at a time per TCP connection. Once a request is made, the connection is blocked until the response is fully delivered, leading to a "head-of-line blocking" problem. To mitigate this, browsers often open multiple connections (up to six per domain), which can overwhelm servers and increase load times.
+  
+- **HTTP/2**: Solves this issue with multiplexing. It allows multiple requests to be sent in parallel over a single TCP connection. This reduces latency, as the client doesn't have to wait for each request to finish before sending the next one. Multiplexing significantly improves the efficiency of data transfer and reduces the overhead caused by opening multiple connections.
+
+---
+
+#### 2. **Binary Protocol vs. Text-Based Protocol**
+- **HTTP/1.1**: Uses a text-based protocol, which means each request and response is communicated using human-readable text. This makes HTTP/1.1 easy to understand and debug, but parsing and handling text takes more time and is prone to errors.
+
+- **HTTP/2**: Is a binary protocol, meaning that communication is done in binary format (ones and zeroes). This makes parsing much faster and more efficient, as binary data is easier for machines to process. Although it’s not human-readable, the binary format enhances the speed and reliability of the communication.
+
+---
+
+#### 3. **Header Compression**
+- **HTTP/1.1**: Every HTTP request and response contains headers, which can be large and repetitive, especially in complex applications that require numerous requests. These headers are sent uncompressed in HTTP/1.1, leading to significant overhead.
+
+- **HTTP/2**: Introduces header compression using the HPACK algorithm, which reduces the size of HTTP headers significantly. Instead of sending the same headers repeatedly, HTTP/2 compresses them, improving the overall performance, especially for web applications with many requests.
+
+---
+
+#### 4. **Server Push**
+- **HTTP/1.1**: In HTTP/1.1, the client must explicitly request all resources. Even if the server knows that a client will need a certain resource (like CSS files or JavaScript files), it has to wait until the client requests them.
+
+- **HTTP/2**: Introduces **Server Push**, a feature that allows the server to send resources to the client before they are requested. This anticipates the client’s needs and speeds up the loading time of websites. For example, when a client requests an HTML page, the server can push associated CSS and JavaScript files along with the response, reducing round-trip times.
+
+---
+
+#### 5. **Stream Prioritization**
+- **HTTP/1.1**: Lacks native support for prioritizing resources. Requests are handled in the order they are received or based on the browser’s connection-opening strategy, without regard to the importance of the resource.
+
+- **HTTP/2**: Allows the client to prioritize different streams (requests) based on their importance. For example, more critical resources (like HTML) can be given higher priority over less critical ones (like images), ensuring that essential content loads faster.
+
+---
+
+#### 6. **Security**
+- **HTTP/1.1**: While HTTP/1.1 can work with secure connections using HTTPS (which adds an SSL/TLS layer), it does not require encryption by default.
+
+- **HTTP/2**: Although the specification allows for both encrypted and unencrypted connections, most browsers only support HTTP/2 over encrypted connections (HTTPS). This ensures better security practices and improves privacy and data protection by default.
+
+---
+
+#### 7. **Connection Management**
+- **HTTP/1.1**: Typically relies on multiple TCP connections to handle multiple resource requests. Opening and managing these connections can be inefficient and can cause congestion, leading to slower performance.
+
+- **HTTP/2**: Uses a single TCP connection to handle multiple requests concurrently. This reduces the overhead associated with establishing multiple connections and helps optimize bandwidth usage. As a result, network congestion and latency are significantly reduced.
+
+---
+
+#### Conclusion
+
+HTTP/2 is a major improvement over HTTP/1.1 in terms of performance, efficiency, and security. Its key features, such as multiplexing, binary framing, header compression, and server push, address many of the bottlenecks present in HTTP/1.1. By allowing multiple parallel requests, reducing overhead, and improving resource loading times, HTTP/2 has become the standard for modern web applications, delivering faster and more reliable browsing experiences.
+
+As web applications continue to grow in complexity, adopting HTTP/2 is essential to keep up with the demands for faster, more efficient, and more secure communication on the web.
+
+2.Write a blog about objects and its internal representation in Javascript 
+### Understanding Objects and Their Internal Representation in JavaScript
+
+In JavaScript, objects are a fundamental way to store and manipulate data. An object is essentially a collection of **key-value pairs**, where keys are strings (or symbols) and values can be any data type, including other objects, arrays, or functions. Objects allow developers to organize data in a structured and meaningful way.
+
+Let’s dive into the key concepts of objects in JavaScript and how they are represented internally.
+
+---
+
+#### 1. **Basic Structure of Objects**
+Objects are created using curly braces `{}` and can hold any type of value as their properties. These properties are accessed through **dot notation** or **bracket notation**.
+
+```javascript
+const person = {
+  name: 'Alice',
+  age: 25,
+  greet: function() {
+    console.log('Hello!');
+  }
+};
+
+// Accessing properties
+console.log(person.name);  // Dot notation
+console.log(person['age']);  // Bracket notation
+```
+
+---
+
+#### 2. **Prototype Chain**
+JavaScript objects are linked to a prototype object. When you try to access a property on an object and it’s not found, JavaScript looks up the **prototype chain** to find it. This allows objects to inherit properties and methods from their prototypes.
+
+```javascript
+const animal = {
+  speak: function() {
+    console.log('Animal sound');
+  }
+};
+
+const dog = Object.create(animal);
+dog.speak();  // Inherits speak method from animal
+```
+
+---
+
+#### 3. **Internal Representation**
+Internally, JavaScript engines, like Google’s V8, optimize the way objects are stored. Initially, objects are represented as **hidden classes** or **shapes** (depending on the engine). As new properties are added or removed, these hidden classes are adjusted to allow efficient property lookups and memory management.
+
+Additionally, each object has a hidden `[[Prototype]]` property, which references its prototype. This forms the prototype chain, enabling inheritance of properties and methods from parent objects.
+
+---
+
+#### 4. **Dynamic Nature of Objects**
+JavaScript objects are highly dynamic. You can add, modify, or delete properties at any time, making objects flexible and powerful.
+
+```javascript
+const car = {};
+car.make = 'Toyota';  // Adding a new property
+car.model = 'Corolla';
+delete car.model;  // Deleting a property
+```
+
+---
+
+#### Conclusion
+Objects in JavaScript provide a versatile and dynamic way to organize and manipulate data. Their internal representation, involving hidden classes and the prototype chain, ensures efficient lookups and inheritance. Understanding how JavaScript handles objects behind the scenes can help developers write more optimized and performant code.
+
+By mastering objects and their internal workings, you can take full advantage of JavaScript's object-oriented capabilities.
+
